@@ -1,0 +1,41 @@
+<!-- create form -->
+
+	<h1 class="h2 border-bottom text-center">Create New Test</h1>
+		<form ng-submit="testCtrl.createTest()" style="margin-top: 30px;">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-md-6 ">
+					<div class="card text-center ">
+						<div class="card-header ">
+							<b>Please Fill In The Details</b>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<div class="input-group">
+									<input class="form-control" placeholder="Test Name" ng-model="testCtrl.testName" type="text" autofocus required>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<input class="form-control" placeholder="Test Description" ng-model="testCtrl.testDesc" type="text" value="" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<input class="form-control" placeholder="Test Duration in Minutes" ng-model="testCtrl.testTime" type="number" value="" required>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<textarea rows="8" class="form-control" placeholder="Test Instructions..." ng-model="testCtrl.testInstructions" type="text" value="" required></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Test" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+

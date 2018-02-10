@@ -1,0 +1,73 @@
+
+<h1 class="h2 border-bottom text-center">Test Available</h1>
+<div ng-if="testCtrl.testArrayLength > 0" class="row">
+  <div ng-repeat="test in testCtrl.tests" class="col-xl-4 col-sm-6 mb-4">
+    <div class="card text-primary border-dark" style="max-width: 20rem;">
+
+        <div class="card-body">
+            <h4 style="text-transform: capitalize;" class="card-title border-bottom">{{test.title}}
+            <span class="pull-right">{{test.time}} Min</span>
+            </h4>
+            <p class="card-text" style="color: black;">{{test.description}}</p>
+            <!-- Links -->
+            <button ng-if="admin == false" ng-disabled="{{ test.testAttemptedBy | filter : {'email':email} }}.length > 0"  ng-click="testCtrl.showTestTimeInModal(test.testid)" data-id="{{test.time}}" type="button"  class="taketest btn btn-outline-dark"> Take Test</button>
+            <a ui-sref="dashboard.edittest({tid:test.testid})" ><button ng-if="admin == true" type="button" class="btn btn-outline-dark"><i class="fa fa-fw fa-pencil"></i>Edit</button></a>
+            <a ui-sref="dashboard.result({tid:test.testid})" ><button ng-if="admin == false" type="button" ng-disabled="{{ test.testAttemptedBy | filter : {'email':email} }}.length == 0" class="btn btn-outline-dark"> Show Results</button></a>
+            <button ng-if="admin == true" ng-click="testCtrl.deleteTest(test.testid)" type="button" class="btn btn-outline-dark"><i class="fa fa-fw fa-trash" aria-hidden="true"></i>Delete</button>
+            <a ui-sref="dashboard.allusers({tid:test.testid})" ><button ng-if="admin == true"  type="button" class="btn btn-outline-dark"><i class="fa fa-fw fa-users" aria-hidden="true"></i>Enrolled Users</button></a>
+        </div>
+        <div ng-if="(test.testAttemptedBy | filter : {'email':email}).length > 0" class="card-footer">
+            You have already taken this test
+        </div>
+
+    </div>
+</div>
+</div>
+
+<h3 ng-if="testCtrl.testLength == 0" class="text-danger">No Test Found  (:</h3>
+
+
+<!-- Modal  for instructions-->
+<div class="modal fade" id="instructionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">Please Read the Instructions Carefully.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <ul>
+             <li>1) You will be alloted {{testCtrl.testtime}} Minutes to Give Test, After which window will close Automatically.</li>
+             <li>2) You can't go back after submitting the Answer for each Question.</li>
+             <li>3) You can submit the Test before the finishing Time if you want but can't after the time finishes, It will Automatically be submitted.</li>
+             <li>4) Please don't do cheating in test. Be fair to yourself for your true Assessment of skills.</li>
+             <li>5) If you aggree with all the terms stated above you may proceed by clicking Start Button Below.</li> 
+         </ul>
+            <h3 align="center"><strong><em>Best Of Luck!</em></strong></h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+        <button type="button" ng-click="testCtrl.runTest()" class=" starttest btn btn-primary">Start Test</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal operations -->
+<script type="text/javascript">
+ var time;
+ $(document).on('mousemove','.taketest', function(){
+  time = $(this).data('id');
+});
+ $(document).ready(function(){
+   $('.starttest').on('click',function(){
+       $('#instructionModal').modal('hide');
+       $('body').removeClass('modal-open');
+       $('.modal-backdrop').remove();
+
+   });
+});
+
+</script>

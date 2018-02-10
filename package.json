@@ -1,0 +1,27 @@
+{
+  "name": "ExamGround",
+  "version": "1.0.0",
+  "description": "A Live Test Taking System developed using MEAN Stack.",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon app.js -e .html,.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rahul Jhawar",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "express-sessions": "^1.0.6",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.9",
+    "nodemailer": "^4.4.1",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth2": "^0.1.6",
+    "random-number": "0.0.9",
+    "randomstring": "^1.1.5"
+  }
+}

@@ -1,0 +1,202 @@
+<ul class="list-group">
+	<li ng-repeat="test in testCtrl.tests"  class="list-group-item">
+		<div class="container">
+			<div class=".d-sm-flex align-items-center row">
+				<div class="col-sm">
+					Test Id:  <b class="text-danger">{{test.testid}}</b>
+				</div>
+				<div class="col-sm">
+					<b class="text-success">{{test.title}}</b>
+				</div>
+				<div class="col-sm">
+					<button  ng-click="testCtrl.viewQuestions(test.testid)" type="button" data-id="{{test.testid}}" data-toggle="modal"  data-target="#ViewQuestionModal" class="viewQuestion btn btn-outline-primary"><i class="fa fa-fw fa-eye" aria-hidden="true"></i>View Questions</button>
+					<button  type="button" data-id="{{test.testid}}" data-toggle="modal" data-target="#AddQuestionModal" class=" addQuestion btn btn-outline-success"><i class="fa fa-fw fa-plus" aria-hidden="true"></i>Add Question</button>
+				</div>
+			</div>
+		</div>
+		
+	</li>
+</ul>
+
+<!-- Add Question Modal -->
+<div class="modal fade" id="AddQuestionModal" tabindex="-1" role="dialog" aria-labelledby="	exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add Your Question</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" id="mytestid" ng-change placeholder="Test Id" ng-model="testCtrl.testid" type="number" autofocus required >
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<textarea rows="3" class="form-control" placeholder="Question.." ng-model="testCtrl.question" type="text" value="" required></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Option A" ng-model="testCtrl.optionA" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Option B" ng-model="testCtrl.optionB" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Option C" ng-model="testCtrl.optionC" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Option D" ng-model="testCtrl.optionD" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="Answer(1,2,3 or 4)" ng-model="testCtrl.answer" type="number" value="" required>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" ng-click="testCtrl.createQuestion()" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- View Questions Modal -->
+<div class="modal fade" id="ViewQuestionModal" tabindex="-1" role="dialog" aria-labelledby="	exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Questions</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<ul ng-repeat="question in testCtrl.questions" class="list-group">
+					<li class="list-group-item list-group-item-primary">{{$index + 1}}) {{question.question}}</li>
+					<div class="row">
+						<div class="col-sm-6">
+							<li class="list-group-item list-group-item-warning">1) {{question.optionA}}</li>
+						</div>
+						<div class="col-sm-6">
+							<li class="list-group-item list-group-item-warning">2) {{question.optionB}}</li>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<li class="list-group-item list-group-item-warning">3) {{question.optionC}}</li>
+						</div>
+						<div class="col-sm-6">
+							<li class="list-group-item list-group-item-warning">4) {{question.optionD}}</li>
+						</div>
+					</div>
+					<li class="list-group-item">
+						<div class=".d-sm-flex align-items-center row">
+							<div class="col-sm">
+								Answer:  <b class="text-danger">{{question.answer}}</b>
+							</div>
+							<div class="col-sm">
+								<button  type="button" data-dismiss="modal" data-toggle="modal" ng-click="testCtrl.editQuestion(question._id)" data-target="#EditQuestionModal" class="btn btn-outline-primary"><i class="fa fa-fw fa-pencil" aria-hidden="true"></i>Edit</button>
+								<button  type="button" data-toggle="modal" ng-click="testCtrl.deleteQuestion(question._id)"  class=" btn btn-outline-danger"><i class="fa fa-fw fa-trash" aria-hidden="true"></i>Delete</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>	
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Edit Question Modal -->
+<div class="modal fade" id="EditQuestionModal" tabindex="-1" role="dialog" aria-labelledby="	exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Edit this Question</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Qid</b></label>
+					<div class="input-group">
+						
+						<input class="form-control" id="mytestid" ng-change placeholder="Question Id" ng-model="testCtrl.questionid" type="text" autofocus required >
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Question</b></label>
+					<div class="input-group">
+						
+						<textarea rows="3" class="form-control" placeholder="Question.." ng-model="testCtrl.question" type="text" value="" required></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Option A</b></label>
+					<div class="input-group">
+						
+						<input class="form-control" placeholder="Option A" ng-model="testCtrl.optionA" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Option B</b></label>
+					<div class="input-group">
+						
+						<input class="form-control" placeholder="Option B" ng-model="testCtrl.optionB" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Option C</b></label>
+					<div class="input-group">
+						
+						<input class="form-control" placeholder="Option C" ng-model="testCtrl.optionC" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Option D</b></label>
+					<div class="input-group">
+						
+						<input class="form-control" placeholder="Option D" ng-model="testCtrl.optionD" type="text" value="" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1"><b>Answer</b></label>
+					<div class="input-group">
+						
+						<input class="form-control" placeholder="Answer(1,2,3 or 4)" ng-model="testCtrl.answer" type="number" value="" required>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" data-toggle="modal" data-dismiss="modal"  ng-click="testCtrl.submitEditedQuestion()" class="quessave btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- sharing data to modal -->
+<script type="text/javascript">
+	$(document).on("click", ".addQuestion", function() {
+		var Id = $(this).data('id');
+		$("#mytestid").val(Id).change();
+	});
+	$(document).on("click", ".quessave", function() {
+		$(".viewQuestion").click();
+	});
+</script>
